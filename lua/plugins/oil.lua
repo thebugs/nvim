@@ -1,0 +1,22 @@
+return {
+  {
+    'stevearc/oil.nvim',
+    ---@module 'oil'
+    ---@type oil.SetupOpts
+    opts = {},
+    -- Optional dependencies
+    dependencies = { { "nvim-mini/mini.icons", opts = {} } },
+    -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
+    -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
+    lazy = false,
+    config = function()
+      local oil = require("oil")
+
+      oil:setup({
+	default_file_explorer = false
+      })
+
+      vim.keymap.set("n", "<leader>cd", oil.toggle_float, { desc = "Open Oil in floating window" })
+    end
+  }
+}
