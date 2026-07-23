@@ -13,7 +13,7 @@ return {
       local oil = require("oil")
 
       oil:setup({
-	default_file_explorer = false
+  default_file_explorer = false
       })
 
       vim.keymap.set("n", "<leader>cd", oil.toggle_float, { desc = "Open Oil in floating window" })
