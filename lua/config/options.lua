@@ -18,3 +18,12 @@ vim.opt.listchars = {
 
 vim.opt.smartindent = true
 vim.opt.autoindent = false
+
+vim.opt.undofile = true
+vim.opt.scrolloff = 8
+vim.opt.signcolumn = "yes"
+vim.opt.updatetime = 50
+
+vim.opt.incsearch = true
+vim.opt.termguicolors = true
+vim.opt.colorcolumn = "80"
