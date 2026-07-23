@@ -11,7 +11,7 @@ return {
       -- injects html + ruby, so those parsers must be installed too.
       local languages = {
         'lua', 'ruby', 'python', 'nix', 'html',
-        'css', 'javascript', 'json', 'yaml', 'sql',
+        'css', 'scss', 'javascript', 'json', 'yaml', 'sql',
         { parser = 'embedded_template', ft = 'eruby' },
       }
 
