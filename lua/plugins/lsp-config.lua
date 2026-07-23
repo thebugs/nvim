@@ -3,7 +3,7 @@ return {
     "neovim/nvim-lspconfig",
     lazy = false,
     config = function()
-      vim.lsp.enable({ "lua_ls", "ruby_lsp", "nil_ls" })
+      vim.lsp.enable({ "lua_ls", "ruby_lsp", "nil_ls", "vtsls", "biome" })
 
       local cmp_nvim_lsp = require("cmp_nvim_lsp")
       local capabilities = vim.tbl_deep_extend(
@@ -31,7 +31,18 @@ return {
       vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
       vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})
       vim.keymap.set("n", "<leader>gf", function()
-        vim.lsp.buf.format()
+        -- If Biome is attached, let it own formatting (avoids vtsls double-
+        -- formatting / the multi-client prompt); otherwise use any client.
+        vim.lsp.buf.format({
+          filter = function(client)
+            local has_biome = false
+            for _, c in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
+              if c.name == "biome" then has_biome = true end
+            end
+            if has_biome then return client.name == "biome" end
+            return true
+          end,
+        })
         -- convert existing tabs → spaces (uses expandtab + tabstop)
         vim.cmd("retab")
         -- strip trailing whitespace, preserving cursor position
